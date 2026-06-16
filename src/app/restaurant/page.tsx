@@ -1,4 +1,3 @@
-import BackButton from '@/components/layout/BackButton';
 import Hero from '@/components/restaurant/Hero';
 import MenuCarousel from '@/components/restaurant/MenuCarousel';
 import ChefSection from '@/components/restaurant/ChefSection';
@@ -12,10 +11,6 @@ export const metadata = {
 export default function RestaurantPage() {
   return (
     <main className="min-h-screen bg-neutral-50 font-sans antialiased">
-      {/* Bouton de retour global */}
-      <BackButton />
-      
-      {/* Séquence complète des sections */}
       <Hero />
       <MenuCarousel />
       <ChefSection />
