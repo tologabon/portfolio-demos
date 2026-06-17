@@ -67,11 +67,11 @@ const menuItems = [
 
 export default function MenuCarousel() {
   return (
-    <section className="py-24 bg-neutral-100 text-neutral-900">
+    <section className="py-16 md:py-24 bg-neutral-100 text-neutral-900 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <span className="text-xs font-bold text-orange-500 uppercase tracking-widest block mb-2">Créations culinaires</span>
-          <h2 className="text-4xl font-extrabold mb-4 tracking-tight">Notre Carte Signature</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">Notre Carte Signature</h2>
           <div className="w-24 h-1 bg-orange-500 mx-auto rounded-full"></div>
         </div>
 
@@ -79,34 +79,53 @@ export default function MenuCarousel() {
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={'auto'}
+          loop={true}
+          breakpoints={{
+            // Sur mobile (petits écrans)
+            0: {
+              slidesPerView: 1.25,
+              spaceBetween: 16,
+            },
+            // Sur tablette
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 24,
+            },
+            // Sur grand écran
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            }
+          }}
           coverflowEffect={{
-            rotate: 15,
+            rotate: 5,
             stretch: 0,
-            depth: 150,
-            modifier: 1,
+            depth: 80,
+            modifier: 1.5,
             slideShadows: false,
           }}
           pagination={{ clickable: true }}
           modules={[EffectCoverflow, Pagination]}
-          className="w-full py-10"
+          className="w-full py-8 !overflow-visible"
         >
           {menuItems.map((item) => (
-            <SwiperSlide key={item.id} className="max-w-sm">
-              <div className="bg-white rounded-2xl overflow-hidden shadow-2xl border border-neutral-200/50 mx-auto transition-all duration-300 hover:scale-[1.02] hover:shadow-orange-500/5">
+            <SwiperSlide key={item.id}>
+              <div className="bg-white rounded-2xl overflow-hidden shadow-xl border border-neutral-200/50 mx-auto transition-all duration-300 h-full flex flex-col">
                 <div className="relative overflow-hidden group">
                   <img 
                     src={item.image} 
                     alt={item.name} 
-                    className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-48 sm:h-64 object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
-                <div className="p-6">
-                  <div className="flex justify-between items-center mb-3">
-                    <h3 className="text-xl font-bold tracking-tight">{item.name}</h3>
-                    <span className="text-orange-600 font-bold text-lg bg-orange-50 px-3 py-1 rounded-lg text-sm">{item.price}</span>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-start gap-2 mb-3">
+                      <h3 className="text-lg md:text-xl font-bold tracking-tight text-neutral-900 leading-tight">{item.name}</h3>
+                      <span className="text-orange-600 font-bold bg-orange-50 px-2.5 py-1 rounded-lg text-sm whitespace-nowrap">{item.price}</span>
+                    </div>
+                    <p className="text-neutral-500 text-xs md:text-sm leading-relaxed font-light line-clamp-3">{item.description}</p>
                   </div>
-                  <p className="text-neutral-500 text-sm leading-relaxed font-light min-h-[40px]">{item.description}</p>
                 </div>
               </div>
             </SwiperSlide>
